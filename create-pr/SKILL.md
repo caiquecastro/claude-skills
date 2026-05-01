@@ -1,6 +1,6 @@
 ---
 name: create-pr
-description: Use this skill when asked to create a PR or push changes. Runs the full workflow: create branch → commit → push → open PR targeting main.
+description: "Use this skill when asked to create a PR or push changes. Runs the full workflow: create branch -> commit -> push -> open PR targeting main."
 ---
 
 When the user asks to create a PR or push changes, run the full workflow below in order. Never skip steps or push directly to main.
