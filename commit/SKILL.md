@@ -1,9 +1,15 @@
 ---
 name: commit-message
-description: Use this skill when asked to commit changes; format messages with lowercase titles and detailed problem/solution paragraphs.
+description: Use this skill when asked to commit changes; prefer repo-local commit style instructions, otherwise format messages with configurable titles and detailed problem/solution paragraphs.
 ---
 
-When the user asks you to commit code changes, escalate permissions and then run `git add` and `git commit` in the same command, using this exact format:
+When the user asks you to commit code changes, first check the current repo's `AGENTS.md` and `CLAUDE.md` files, if present, for commit message instructions.
+
+If `AGENTS.md` or `CLAUDE.md` defines a commit message style, follow those repo-local instructions first. If both files define commit message style and conflict, prefer `AGENTS.md`, then apply any non-conflicting details from `CLAUDE.md`.
+
+If the repo-local instructions only define the commit title style, apply that title style and use this skill's body format below. If the repo-local instructions define the full commit message format, follow that full format instead of this fallback.
+
+If there are no repo-local commit message instructions, escalate permissions and then run `git add` and `git commit` in the same command, using this fallback format:
 
 ## Format structure
 
@@ -17,8 +23,9 @@ solution paragraph explaining what was done to fix it, what specific code/files 
 
 ## Rules
 
-- Title: all lowercase, concise summary
-- Title must not contain any issue id, user story id, ticket id, or similar reference
+- Default title: all lowercase, concise summary
+- If the user explicitly requests a title convention, follow that convention for the title only. Examples include semantic or conventional commit titles such as `feat: add export flow` or `fix(auth): handle expired tokens`.
+- Do not include any issue id, user story id, ticket id, or similar reference unless the repo-local instructions or the user's requested title convention requires it
 - No section headers like "problem:" or "solution:" or "changes:"
 - No bullet points anywhere
 - No "next steps" section
